@@ -1,30 +1,22 @@
 import React from 'react';
 
 export default class Item extends React.Component<any, any>{
-  constructor(props: any){
-    super(props);
-    this.increase = this.increase.bind(this);
-    this.decrease = this.decrease.bind(this);
-    this.changeTitle = this.changeTitle.bind(this);
-    this.delete = this.delete.bind(this);
-  };
-
-  increase(e: any){
+  increase = (e: any) => {
     this.props.handleAmount(this.props.item.id, this.props.item.amount+1);
   }
 
-  decrease(e: any){
+  decrease = (e: any) => {
     if(this.props.item.amount > 1){
       this.props.handleAmount(this.props.item.id, this.props.item.amount-1);
     }
   }
 
-  changeTitle(e: any){
+  changeTitle = (e: any) => {
     const newTitle = e.target.value;
     this.props.handleTitle(this.props.item.id, newTitle);
   }
 
-  delete(e: any){
+  delete = (e: any) => {
     this.props.deleteItem(this.props.item.id);
   }
 

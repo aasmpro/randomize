@@ -4,37 +4,29 @@ import Item from './item/component'
 
 export default class App extends React.Component<any, any, any>{
   count = 0;
-  constructor(props: {}){
-    super(props);
-    this.addItem = this.addItem.bind(this);
-    this.deleteItem = this.deleteItem.bind(this);
-    this.handleTitle = this.handleTitle.bind(this);
-    this.handleAmount = this.handleAmount.bind(this);
-    this.total = this.total.bind(this);
-    this.state = {
-      items: []
-    }
-  };
+  state = {
+    items: []
+  }
 
-  total(){
+  total = () => {
     return this.state.items.reduce((preItem: any, curItem: any) => {
       return preItem + curItem.amount;
     }, 0);
   }
 
-  handleTitle(id: number, title: string){
+  handleTitle = (id: number, title: string) => {
     this.setState((state: any, props: any) => ({
       items: state.items.map((item: any) => (item.id === id ? {...item, title} : item))
     }));
   }
 
-  handleAmount(id: number, amount: number){
+  handleAmount = (id: number, amount: number) => {
     this.setState((state: any, props: any) => ({
       items: state.items.map((item: any) => (item.id === id ? {...item, amount} : item))
     }));
   }
 
-  addItem(){
+  addItem = () => {
     this.setState((state: any, props: any)=>({
       items: [...state.items, {
         id: this.count,
@@ -45,7 +37,7 @@ export default class App extends React.Component<any, any, any>{
     this.count += 1;
   }
 
-  deleteItem(id: number){
+  deleteItem = (id: number) => {
     this.setState((state: any, props: any)=>({
       items: state.items.filter((item: any) => item.id !== id)
     }));
