@@ -1,5 +1,5 @@
 import React from 'react';
-import './style.css'
+import { Card, Modal } from 'antd';
 
 export default class RandomItem extends React.Component<any, any>{
   state = {
@@ -7,18 +7,24 @@ export default class RandomItem extends React.Component<any, any>{
   }
 
   see = (e: any) => {
-    this.setState({
-      seen: true
-    })
-    alert(this.props.data)
+    if(!this.state.seen){
+      this.setState({
+        seen: true
+      })
+      Modal.info({
+        title: this.props.data,
+        centered: true
+      });
+    }
   }
 
   render() {
     return (
-      <button
-        className={this.state.seen ? 'random-item' : 'random-item'}
-        disabled={this.state.seen}
-        onClick={this.see}>{this.props.label}</button>
+      <Card style={{ textAlign: "center" }} 
+            onClick={this.see}
+            className={this.state.seen ? 'random-item seen' : 'random-item'}>
+        {this.props.label}
+      </Card>
     );
   }
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Card, Icon, Input} from 'antd';
 
 export default class Item extends React.Component<any, any>{
   increase = (e: any) => {
@@ -22,13 +23,17 @@ export default class Item extends React.Component<any, any>{
 
   render() {
     return (
-      <div className="item">
-        <button onClick={this.delete}>X</button>
-        <input value={this.props.item.title} onChange={this.changeTitle}/>
-        <button onClick={this.decrease}>-</button>
-        <span>{this.props.item.amount}</span>
-        <button onClick={this.increase}>+</button>
-      </div>
+      <Card
+        size="small"
+        bodyStyle={{padding: 0}}
+        actions={[
+          <Icon type="left" onClick={this.decrease}/>, 
+          <span>{this.props.item.amount}</span>, 
+          <Icon type="right" onClick={this.increase}/>]}>
+        <Input value={this.props.item.title} onChange={this.changeTitle} size="large"
+          // style={{border: 'None', borderRadius: 0}}
+          addonAfter={<Icon style={{borderRadius:0}} type="close" onClick={this.delete}/>}/>
+      </Card>
     );
   }
 }
