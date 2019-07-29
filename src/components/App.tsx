@@ -2,35 +2,47 @@ import React from 'react';
 import './App.css';
 import Item from './item/component'
 
-export default class App extends React.Component<any, any>{
+export default class App extends React.Component<any, any, any>{
+  count = 0;
   constructor(props: {}){
     super(props);
-    this.handleTotal = this.handleTotal.bind(this);
     this.addItem = this.addItem.bind(this);
     this.deleteItem = this.deleteItem.bind(this);
+    this.handleTitle = this.handleTitle.bind(this);
+    this.handleAmount = this.handleAmount.bind(this);
+    this.total = this.total.bind(this);
     this.state = {
-      total: 0,
-      count: 1,
       items: []
     }
   };
 
-  handleTotal(value: number){
-    this.setState((state: any, props: any)=>({
-      total: this.state.total+value
+  total(){
+    return this.state.items.reduce((preItem: any, curItem: any) => {
+      return preItem + curItem.amount;
+    }, 0);
+  }
+
+  handleTitle(id: number, title: string){
+    this.setState((state: any, props: any) => ({
+      items: state.items.map((item: any) => (item.id === id ? {...item, title} : item))
+    }));
+  }
+
+  handleAmount(id: number, amount: number){
+    this.setState((state: any, props: any) => ({
+      items: state.items.map((item: any) => (item.id === id ? {...item, amount} : item))
     }));
   }
 
   addItem(){
     this.setState((state: any, props: any)=>({
       items: [...state.items, {
-        id: state.count,
-        title: `item ${state.count}`,
+        id: this.count,
+        title: `item ${this.count}`,
         amount: 1
       }],
-      count: state.count + 1,
-      total: state.total + 1
     }));
+    this.count += 1;
   }
 
   deleteItem(id: number){
@@ -42,13 +54,14 @@ export default class App extends React.Component<any, any>{
   render() {
     return (
       <div>
-        <div id="total">{this.state.total}</div>
+        <div id="total">{this.total()}</div>
         <div>
           {this.state.items.map((item: any)=>
-            <Item handleTotal={this.handleTotal}
-                  item={item}
+            <Item item={item}
                   key={item.id}
-                  handleRemove={this.deleteItem}
+                  deleteItem={this.deleteItem}
+                  handleTitle={this.handleTitle}
+                  handleAmount={this.handleAmount}
                   />
           )}
         </div>
