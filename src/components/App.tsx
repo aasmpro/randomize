@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
-import Item from './item/component'
+import Item from './item/component';
+import RandomItem from './random-item/component';
 
 function shuffle(a: any) {
   for (let i = a.length - 1; i > 0; i--) {
@@ -13,7 +14,9 @@ function shuffle(a: any) {
 export default class App extends React.Component<any, any, any>{
   count = 0;
   state = {
-    items: []
+    items: [],
+    randomView: false,
+    randomItems: []
   }
 
   total = () => {
@@ -58,26 +61,45 @@ export default class App extends React.Component<any, any, any>{
         list.push(item.title)
       }
     })
-    list = shuffle(list);
+    this.setState((state: any, props: any)=>({
+      randomItems: shuffle(list),
+      randomView: true
+    }));
   }
 
   render() {
-    return (
-      <div>
-        <div id="total">{this.total()}</div>
+    if(this.state.randomView){
+      return (
         <div>
-          {this.state.items.map((item: any)=>
-            <Item item={item}
-                  key={item.id}
-                  deleteItem={this.deleteItem}
-                  handleTitle={this.handleTitle}
-                  handleAmount={this.handleAmount}
-                  />
-          )}
+          <div>
+            {this.state.randomItems.map((item: any, index: number)=>
+              <RandomItem data={item}
+                          label={index+1}
+                          key={index}
+                          />
+            )}
+          </div>
+          <button onClick={() => {this.setState({randomView: false})}}>X</button>
         </div>
-        <button onClick={this.addItem}>+</button>
-        <button onClick={this.randomize}>randomize</button>
-      </div>
-    );
+      )
+    } else {
+      return (
+        <div>
+          <div id="total">{this.total()}</div>
+          <div>
+            {this.state.items.map((item: any)=>
+              <Item item={item}
+                    key={item.id}
+                    deleteItem={this.deleteItem}
+                    handleTitle={this.handleTitle}
+                    handleAmount={this.handleAmount}
+                    />
+            )}
+          </div>
+          <button onClick={this.addItem}>+</button>
+          <button onClick={this.randomize}>randomize</button>
+        </div>
+      );
+    }
   }
 }
