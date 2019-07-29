@@ -2,6 +2,14 @@ import React from 'react';
 import './App.css';
 import Item from './item/component'
 
+function shuffle(a: any) {
+  for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
 export default class App extends React.Component<any, any, any>{
   count = 0;
   state = {
@@ -43,6 +51,16 @@ export default class App extends React.Component<any, any, any>{
     }));
   }
 
+  randomize = () => {
+    let list: any[] = [];
+    this.state.items.forEach((item: any)=> {
+      for(let i=0; i<item.amount; i++){
+        list.push(item.title)
+      }
+    })
+    list = shuffle(list);
+  }
+
   render() {
     return (
       <div>
@@ -58,6 +76,7 @@ export default class App extends React.Component<any, any, any>{
           )}
         </div>
         <button onClick={this.addItem}>+</button>
+        <button onClick={this.randomize}>randomize</button>
       </div>
     );
   }
