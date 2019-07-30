@@ -1,4 +1,7 @@
-html, body, #root, .ant-layout {
+html,
+body,
+#root,
+.ant-layout {
     background-color: #ecedf5 !important;
     height: 100% !important;
     width: 100% !important;
@@ -15,7 +18,6 @@ html, body, #root, .ant-layout {
     margin-bottom: 70px;
     margin-top: 20px
 }
-
 
 .ant-modal-confirm-body i {
     display: none;
@@ -47,7 +49,7 @@ html, body, #root, .ant-layout {
     margin: 0 !important;
 }
 
-.ant-modal-confirm-btns .ant-btn, 
+.ant-modal-confirm-btns .ant-btn,
 .ant-modal-confirm-btns .ant-btn:hover,
 .ant-modal-confirm-btns .ant-btn:focus {
     border: none;
@@ -79,7 +81,7 @@ html, body, #root, .ant-layout {
     font-size: 1.4rem !important;
 }
 
-.seen > .ant-card-body {
+.seen>.ant-card-body {
     background: #363636;
     color: white
 }
@@ -106,7 +108,8 @@ html, body, #root, .ant-layout {
     font-size: 1.2rem !important
 }
 
-.ant-input-wrapper, .ant-input-group .ant-input-group-addon{
+.ant-input-wrapper,
+.ant-input-group .ant-input-group-addon {
     border-radius: 0 !important;
     border-top-right-radius: 1px !important;
 }
@@ -118,12 +121,12 @@ html, body, #root, .ant-layout {
     border-radius: 0 !important
 }
 
-.ant-card-actions > li {
+.ant-card-actions>li {
     margin: 0 !important;
     padding: 10px 0 !important;
 }
 
-.ant-card-actions > li span{
+.ant-card-actions>li span {
     font-size: 1.4rem;
     color: red
 }
