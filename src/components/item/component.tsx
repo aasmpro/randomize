@@ -1,5 +1,6 @@
 import React from 'react';
-import { Card, Icon, Input } from 'antd';
+import { Card, Input } from 'antd';
+import { CloseOutlined, RightOutlined, LeftOutlined } from '@ant-design/icons';
 
 export default class Item extends React.Component<any, any> {
   increase = (e: any) => {
@@ -27,19 +28,17 @@ export default class Item extends React.Component<any, any> {
         size="small"
         bodyStyle={{ padding: 0 }}
         actions={[
-          <Icon type="left" onClick={this.decrease} />,
+          <LeftOutlined onClick={this.decrease} />,
           <span>{this.props.item.amount}</span>,
-          <Icon type="right" onClick={this.increase} />
+          <RightOutlined onClick={this.increase} />
         ]}>
         <Input
           value={this.props.item.title}
           onChange={this.changeTitle}
           size="large"
-          // style={{border: 'None', borderRadius: 0}}
           addonAfter={
-            <Icon
-              style={{ borderRadius: 0 }}
-              type="close"
+            <CloseOutlined
+              style={{ borderRadius: 0, fontSize: '1.4rem' }}
               onClick={this.delete}
             />
           }

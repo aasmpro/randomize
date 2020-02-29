@@ -1,7 +1,12 @@
 import React from 'react';
 import Item from './item/component';
 import RandomItem from './random-item/component';
-import { Layout, Icon, Button, List } from 'antd';
+import { Layout, Button, List } from 'antd';
+import {
+  CloseOutlined,
+  PlusCircleOutlined,
+  SwapOutlined
+} from '@ant-design/icons';
 import './App.css';
 import 'antd/dist/antd.css';
 
@@ -66,14 +71,15 @@ export default class App extends React.Component<any, any, any> {
   };
 
   randomize = () => {
-    let list: any[] = [];
-    this.state.items.forEach((item: any) => {
-      for (let i = 0; i < item.amount; i++) {
-        list.push(item.title);
-      }
-    });
     this.setState((state: any, props: any) => ({
-      randomItems: shuffle(list),
+      randomItems: shuffle(
+        this.state.items.flatMap((item: any) => {
+          let label = item.title.split('/')[
+            Math.floor(Math.random() * item.title.split('/').length)
+          ];
+          return Array(item.amount).fill(label);
+        })
+      ),
       randomView: true
     }));
   };
@@ -100,7 +106,7 @@ export default class App extends React.Component<any, any, any> {
             }}
             className="bottom-fixed"
             block>
-            <Icon type="close" />
+            <CloseOutlined style={{ fontSize: '1.4rem' }} />
           </Button>
         </Layout>
       );
@@ -108,7 +114,6 @@ export default class App extends React.Component<any, any, any> {
       return (
         <Layout>
           <Content>
-            {/* <p style={{margin:0, padding:0}}>total</p> */}
             <p id="total">{this.total()}</p>
             <div>
               {this.state.items.map((item: any) => (
@@ -121,13 +126,10 @@ export default class App extends React.Component<any, any, any> {
                 />
               ))}
             </div>
-            <Icon
-              className="add-item"
-              onClick={this.addItem}
-              type="plus-circle"
-            />
+            <PlusCircleOutlined className="add-item" onClick={this.addItem} />
+            <p>Use / in titles to create random choice</p>
             <Button onClick={this.randomize} className="bottom-fixed" block>
-              Randomize
+              <SwapOutlined style={{ fontSize: '1.5rem' }} />
             </Button>
           </Content>
         </Layout>
