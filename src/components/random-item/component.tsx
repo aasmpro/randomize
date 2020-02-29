@@ -13,7 +13,8 @@ export default class RandomItem extends React.Component<any, any> {
       });
       Modal.info({
         title: this.props.data,
-        centered: true
+        centered: true,
+        icon: ''
       });
     }
   };
